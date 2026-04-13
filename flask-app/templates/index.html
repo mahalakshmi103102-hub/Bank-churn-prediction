@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("https://insidetelecom.com/wp-content/uploads/2020/11/Telecom-operators-and-reducing-customer-churn-1024x576.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+        }
+        .container {
+            width: 50%;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 8px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .churn {
+            color: red;
+        }
+        .not-churn {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Customer Churn Prediction</h2>
+        <form action="/predict" method="post">
+            <input type="number" name="credit_score" placeholder="Credit Score" required>
+            <select name="gender" required>
+                <option value="" disabled selected>Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <input type="number" name="age" placeholder="Age" required>
+            <input type="number" name="tenure" placeholder="Tenure (Years)" required>
+            <input type="number" name="balance" placeholder="Balance" required>
+            <input type="number" name="products_number" placeholder="Number of Products" required>
+            <select name="credit_card" required>
+                <option value="" disabled selected>Has Credit Card?</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <select name="active_member" required>
+                <option value="" disabled selected>Is Active Member?</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <input type="number" name="estimated_salary" placeholder="Estimated Salary" required>
+            <select name="country" required>
+                <option value="" disabled selected>Country</option>
+                <option value="France">France</option>
+                <option value="Germany">Germany</option>
+                <option value="Spain">Spain</option>
+            </select>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result {% if 'Churn' in prediction %}churn{% else %}not-churn{% endif %}">
+            Prediction: {{ prediction }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
